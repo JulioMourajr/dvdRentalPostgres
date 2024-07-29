@@ -1,0 +1,36 @@
+services:
+
+  postgres:
+    image: bitnami/postgresql:latest
+    container_name: postgres-db
+    ports:
+      - '5432:5432' 
+    volumes:
+      - db-data:/var/lib/postgresql/data  
+    environment:
+      - POSTGRESQL_USERNAME=${DB_USER}
+      - POSTGRESQL_PASSWORD=${DB_PASS}
+      - POSTGRESQL_DATABASE=${DB_NAME}  
+    
+
+  api:
+    image: juliomourajr92/dvdrentalpostgres:latest
+    container_name: api-server
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+
+volumes:
+  db-data:
+
+
+
+
+    
