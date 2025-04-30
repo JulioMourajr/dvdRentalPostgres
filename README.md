@@ -175,7 +175,19 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e pull re
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
-```
 
 Este README fornece uma visão geral do projeto, instruções de configuração, detalhes sobre o deploy no Docker Hub e informações sobre a configuração de CI/CD com GitHub Actions. Certifique-se de ajustar os detalhes conforme necessário para refletir com precisão o seu projeto.
+
+## Kubernetes
+
+Aplique os manifestos kubernetes 
+
+```sh
+kubectl apply -f postgres-deployment.yaml 
+kubectl apply -f api-deployment.yaml 
+kubectl apply -f dvdrentalfront.yaml 
+```
+
+
+
 
