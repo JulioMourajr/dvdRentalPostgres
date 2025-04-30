@@ -14,7 +14,7 @@ services:
     
 
   api:
-    image: juliomourajr92/dvdrentalpostgres:latest
+    image: juliomourajr92/dvdrentalback:latest
     container_name: api-server
     ports:
       - '3000:3000'

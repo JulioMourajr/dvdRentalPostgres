@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvd-rental-frontend
+  labels:
+    app: dvd-rental-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dvd-rental-frontend
+  template:
+    metadata:
+      labels:
+        app: dvd-rental-frontend
+    spec:
+      containers:
+      - name: dvd-rental-frontend
+        image: juliomourajr92/dvdrentalfront:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          value: "3000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dvd-rental-frontend-service
+spec:
+  selector:
+    app: dvd-rental-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+    nodePort: 30010
+  type: NodePort
