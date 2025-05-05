@@ -4,6 +4,23 @@ metadata:
   name: postgres
   labels:
     app: postgres
+    service: bancodedados
+  annotations:
+    ad.datadoghq.com/postgres.logs: '[{"source": "postgres", "service": "bancodedados"}]'
+    ad.datadoghq.com/postgres.checks: |
+      {
+        "postgres": {
+          "instances": [
+            {
+              "host": "%%host%%",
+              "port": "5432",
+              "username": "juliodocker",
+              "password": "moura",
+              "dbname": "dvdrental2024"
+            }
+          ]
+        }
+      }
 spec:
   replicas: 1
   selector:
@@ -12,7 +29,27 @@ spec:
   template:
     metadata:
       labels:
+        service: bancodedados
+        tags.datadoghq.com/env: 'dev'
+        tags.datadoghq.com/service: 'bancodedados'
+        tags.datadoghq.com/version: '1.0'
         app: postgres
+      annotations:
+        ad.datadoghq.com/postgres.logs: '[{"source": "postgres", "service": "bancodedados"}]'
+        ad.datadoghq.com/postgres.checks: |
+          {
+            "postgres": {
+              "instances": [
+                {
+                  "host": "%%host%%",
+                  "port": "5432",
+                  "username": "juliodocker",
+                  "password": "moura",
+                  "dbname": "dvdrental2024"
+                }
+              ]
+            }
+          }
     spec:
       containers:
         - name: postgres

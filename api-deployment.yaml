@@ -4,6 +4,10 @@ metadata:
   name: api
   labels:
     app: api
+    service: dvdrental
+    tags.datadoghq.com/env: 'dev'
+    tags.datadoghq.com/service: 'dvdrental'
+    tags.datadoghq.com/version: '1.0'
 spec:
   replicas: 1
   selector:
@@ -13,6 +17,14 @@ spec:
     metadata:
       labels:
         app: api
+        service: dvdrental
+        tags.datadoghq.com/env: 'dev'
+        tags.datadoghq.com/service: 'dvdrental'
+        tags.datadoghq.com/version: '1.0'
+        admission.datadoghq.com/enabled: "true"
+      annotations:
+        admission.datadoghq.com/js-lib.version: v5.50.0
+        ad.datadoghq.com/api.logs: '[{"source": "nodejs", "service": "dvdrental"}]'
     spec:
       containers:
         - name: api
@@ -30,6 +42,12 @@ spec:
               value: "moura"
             - name: DB_NAME
               value: "dvdrental2024"
+            - name: DD_AGENT_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: DD_LOGS_INJECTION
+              value: "true"
 ---
 apiVersion: v1
 kind: Service
